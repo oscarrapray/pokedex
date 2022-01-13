@@ -7,7 +7,8 @@ import { Loading } from "./Loading"
 export const Home = () =>{ 
     const [data,setData] = useState([])
     const [isloading, setIsLoading] =  useState(true);
-    const [currentpage,setCurrentPage] = useState(0)
+    const [currentpage,setCurrentPage] = useState(0);
+    const [ search, setSearch ] = useState('');
 
     const consultarApi = async () => {
          const url ='https://pokeapi.co/api/v2/pokemon?limit=1118'       
@@ -33,16 +34,28 @@ export const Home = () =>{
     }
     
     const filterPokemon = () =>{
-        return data.slice(currentpage, currentpage + 5);
+
+        if( search.length === 0 ) 
+        return data.slice(currentpage, currentpage + 12);
+
+        // Si hay algo en la caja de texto
+        const filtered = data.filter( poke => poke.name.includes( search ) );
+        return filtered.slice( currentpage, currentpage + 12);
     }
     
     const nextPage = () => {
-        setCurrentPage(currentpage + 5 );
+        if ( data.filter( poke => poke.name.includes( search ) ).length > currentpage + 12 )
+        setCurrentPage(currentpage + 12 );
     }
 
     const prevPage = () => {
         if (currentpage > 0 )
-        setCurrentPage(currentpage - 5 );
+        setCurrentPage(currentpage - 12 );
+    }
+    
+    const onSearchChange = ({ target }) => {
+        setCurrentPage(0);
+        setSearch( target.value );
     }
 
     useEffect(()=>{
@@ -53,7 +66,16 @@ export const Home = () =>{
     return(
         <>
         <Header />
-        <div>
+        <div className="l-container">
+            <div className="search">
+                <input 
+                    type="text"
+                    className="form-control"
+                    placeholder="Buscar Pokémon"
+                    value={ search }
+                    onChange={ onSearchChange }
+                />
+            </div>
             <div className="container">
                 {
                     filterPokemon().map(xx =>(
