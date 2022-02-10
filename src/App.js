@@ -1,14 +1,16 @@
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
+import { DetallePokemon } from './components/DetallePokemon';
+import { Header } from './components/Header';
 import { Home } from './components/Home';
-import { Pokemon } from './components/Pokemon';
 
 
 function App() {
   return (
     <BrowserRouter>
+    <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pokemon" element={<Pokemon />} />
+        <Route path="/:id" element={<DetallePokemon />} />
       </Routes>
     </BrowserRouter>
   );

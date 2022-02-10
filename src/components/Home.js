@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Pokemon } from "./Pokemon"
 import axios from "axios"
-import { Header } from "./Header"
+//import { Header } from "./Header"
 import { Loading } from "./Loading"
 
 export const Home = () =>{ 
@@ -65,45 +65,47 @@ export const Home = () =>{
      
     return(
         <>
-        <Header />
+        
         <div className="l-container">
-            <div className="search">
-                <input 
-                    type="text"
-                    className="form-control"
-                    placeholder="Buscar Pokémon"
-                    value={ search }
-                    onChange={ onSearchChange }
-                />
-            </div>
-            <div className="container">
-                {
-                    filterPokemon().map(xx =>(
-                        <Pokemon 
-                        key = {xx.id}
-                        xx = {xx}
+            <div className="l-grid">
+                <div className="search">
+                    <input 
+                        type="text"
+                        className="form-control"
+                        placeholder="Buscar Pokémon"
+                        value={ search }
+                        onChange={ onSearchChange }
                     />
-                    ))
-                }
-                
-                {
-                isloading && <Loading />
-                }
-            </div>
-            <div className="pagination">
-                <button 
-                        className="btn-primary"
-                        onClick={ prevPage }
-                    >
-                        Anteriores
-                    </button>
-                    &nbsp;
+                </div>
+                <div className="container">
+                    {
+                        filterPokemon().map(pok =>(
+                            <Pokemon 
+                            key = {pok.id}
+                            pok = {pok}
+                        />
+                        ))
+                    }
+                    
+                    {
+                    isloading && <Loading />
+                    }
+                </div>
+                <div className="pagination">
                     <button 
-                        className="btn-primary"
-                        onClick={ nextPage }
-                    >
-                        Siguientes
-                    </button>
+                            className="btn-primary"
+                            onClick={ prevPage }
+                        >
+                            Anteriores
+                        </button>
+                        &nbsp;
+                        <button 
+                            className="btn-primary"
+                            onClick={ nextPage }
+                        >
+                            Siguientes
+                        </button>
+                </div>
             </div>
         </div>
         </>

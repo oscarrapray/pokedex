@@ -1,12 +1,13 @@
-export const Pokemon = ({xx}) =>{
+import {Link} from 'react-router-dom'
 
+export const Pokemon = ({pok}) =>{
     return(
         <div className="card">
                 <div className="card-img">
-                    <img src={xx.pic} alt={xx.name} />
+                <Link to={`/${pok.id}`}> <img src={pok.pic} alt={pok.name} /></Link>
                 </div>
                 <div className="card-description">
-                    <p>{xx.name}</p>
+                    <Link to={`/${pok.id}`}> <p>{pok.name}</p></Link>
                 </div>
         </div>
     )
