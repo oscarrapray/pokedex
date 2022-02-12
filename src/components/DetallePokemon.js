@@ -22,6 +22,7 @@ export const DetallePokemon = () =>{
     }
     useEffect(()=>{
         consultarApi()
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[dato])
     return(
         <>
